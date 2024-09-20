@@ -1,0 +1,2 @@
+#!/bin/bash
+st-flash --reset --format ihex write build/rt4_firmware.hex
