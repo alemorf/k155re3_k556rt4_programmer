@@ -215,10 +215,9 @@ void prog_write(void) {
                 led_off();
                 DWT_DELAY_MS(300 * 4);     /* Скважность не менее 8 */
                 io_set_data(0xFF, false);  /* Для чтения */
-                led_off();
 
                 /* Verify */
-                if ((io_get_data() & (1 << bit_number)) == 0) {
+                if ((io_get_data() & bit_mask) == 0) {
                     io_set_address(0);
                     print_error("Burn failed");
                     return;
