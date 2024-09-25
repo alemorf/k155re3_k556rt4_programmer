@@ -269,7 +269,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   const size_t avl = sizeof(con_rx_buffer) - con_rx_buffer_size;
   if (len > avl) {
     con_rx_stopped = len;
-    return;
+    return USBD_OK;
   }
 
   memcpy(con_rx_buffer + con_rx_buffer_size, Buf, len);
@@ -277,7 +277,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, UserRxBufferFS);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
-  return (USBD_OK);
+  return USBD_OK;
   /* USER CODE END 6 */
 }
 

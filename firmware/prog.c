@@ -36,7 +36,7 @@ static void io_set_data(uint8_t data, bool write) {
 }
 
 static uint8_t io_get_data(void) {
-    // Data in: B9 B10 B12 B13 B14 B15 A8 A9
+    /* Data in: B9 B10 B12 B13 B14 B15 A8 A9 */
     const uint16_t a = GPIOA->IDR;
     const uint16_t b = GPIOB->IDR;
     return ((b >> 9) & 0x03) | ((b >> (12 - 2)) & (0x0F << 2)) | ((a >> (8 - 6)) & (0x03 << 6));
@@ -203,21 +203,21 @@ void prog_write(void) {
             if ((burn_bits & bit_mask) != 0) {
                 printf("Burn %u bit to address %u\r\n", bit_number, address);
 
-                // Burn
+                /* Burn */
                 io_set_data(bit_mask, false);
-                DWT_DELAY_MS(300 * 3);  // Скважность не менее 8
+                DWT_DELAY_MS(300 * 3);  /* Скважность не менее 8 */
                 led_on();
                 __disable_irq();
                 io_set_data(bit_mask, true);
-                DWT_DELAY_MS(300 * 1);  // Время программирования 300 мс
+                DWT_DELAY_MS(300 * 1);  /* Время программирования 300 мс */
                 io_set_data(bit_mask, false);
                 __enable_irq();
                 led_off();
-                DWT_DELAY_MS(300 * 4);     // Скважность не менее 8
-                io_set_data(0xFF, false);  // Для чтения
+                DWT_DELAY_MS(300 * 4);     /* Скважность не менее 8 */
+                io_set_data(0xFF, false);  /* Для чтения */
                 led_off();
 
-                // Verify
+                /* Verify */
                 if ((io_get_data() & (1 << bit_number)) == 0) {
                     io_set_address(0);
                     print_error("Burn failed");

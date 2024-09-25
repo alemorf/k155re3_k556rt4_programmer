@@ -18,7 +18,6 @@
 ./.clang-format
 ./rt4_firmware.cxxflags
 ./startup_stm32f401xc.s
-./rt4_firmware.creator.user
 ./Core/Inc/main.h
 ./Core/Inc/stm32f4xx_hal_conf.h
 ./Core/Inc/stm32f4xx_it.h
